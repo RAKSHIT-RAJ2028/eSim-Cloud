@@ -154,19 +154,16 @@ export class Buzzer extends CircuitElement {
         }
       }
     }
+    if(arduinoEnd.connectedTo){
+      this.arduino = arduinoEnd.parent;
+    }
+    
     // Show error
     if (!arduinoEnd || !negativeEnd) {
       window.showToast('Buzzer is not Connected properly');
-      return;
     }
-
-    if (arduinoEnd) {
-      if (arduinoEnd.connectedTo) {
-        this.arduino = arduinoEnd.parent;
-      }
-    }
-
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    
+const AudioContext = window.AudioContext || window.webkitAudioContext;
     this.audioCtx = new AudioContext();
     this.oscillator = this.audioCtx.createOscillator();
     this.oscillator.type = 'square';
@@ -192,7 +189,6 @@ export class Buzzer extends CircuitElement {
     }
     this.audioCtx = null;
     this.oscillator = null;
-    this.arduino = null;
     this.prev = -2;
     this.skipCheck = false;
     setTimeout(() => {
